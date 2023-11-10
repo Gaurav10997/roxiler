@@ -1,6 +1,7 @@
 const express = require("express")
 const mongoose = require('mongoose')
 var cors = require('cors')
+// const fetch = require('node-fetch');
 const Product = require('./models/product')
 const {getAllTransactions,getStatics,getBarChart, categorystats,test,extractMonth} = require('./controller/transactionController')
 
@@ -10,7 +11,7 @@ app.use(cors())
 // mongoose.connect('mongodb://127.0.0.1:27017/roxiler')
 // .then(()=>console.log('databse connected Successfully'))
 
-mongoose.connect('mongodb+srv://avdhika:passwordavdhika@cluster0.lsjg2hk.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://avdhika:roxiler@cluster0.3ladjhy.mongodb.net/')
   .then(() => {
     console.log("Connection to the database successful");
   })
@@ -31,23 +32,23 @@ app.listen(PORT_NO ,()=>{
 // saving all the Product to the DataBase 
 
 
-fetch('https://s3.amazonaws.com/roxiler.com/product_transaction.json')
-.then((response)=>response.json())
-.then((data)=>{
-    const productsToInsert = data; 
-    const insertPromises = productsToInsert.map((productData) => {
-        const product = new Product(productData);
-        return product.save();
-      });
+// fetch('https://s3.amazonaws.com/roxiler.com/product_transaction.json')
+// .then((response)=>response.json())
+// .then((data)=>{
+//     const productsToInsert = data; 
+//     const insertPromises = productsToInsert.map((productData) => {
+//         const product = new Product(productData);
+//         return product.save();
+//       });
 
-      return  Promise.all(insertPromises)
-})
-.then((insertedProducts) => {
-    console.log(`Inserted ${insertedProducts.length} products into the database.`);
-  })
-  .catch((error) => {
-    console.error('Error inserting products: ' + error);
-  });
+//       return  Promise.all(insertPromises)
+// })
+// .then((insertedProducts) => {
+//     console.log(`Inserted ${insertedProducts.length} products into the database.`);
+//   })
+//   .catch((error) => {
+//     console.error('Error inserting products: ' + error);
+//   });
 
 
   
