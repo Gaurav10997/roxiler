@@ -7,8 +7,17 @@ const {getAllTransactions,getStatics,getBarChart, categorystats,test,extractMont
 
 const app = express();
 app.use(cors())
-mongoose.connect('mongodb://127.0.0.1:27017/roxiler')
-.then(()=>console.log('databse connected Successfully'))
+// mongoose.connect('mongodb://127.0.0.1:27017/roxiler')
+// .then(()=>console.log('databse connected Successfully'))
+
+mongoose.connect('mongodb+srv://avdhika:passwordavdhika@cluster0.lsjg2hk.mongodb.net/?retryWrites=true&w=majority')
+  .then(() => {
+    console.log("Connection to the database successful");
+  })
+  .catch((e) => {
+    console.log('Something went wrong with the connection:', e);
+  });
+
 
 
 
@@ -22,23 +31,23 @@ app.listen(PORT_NO ,()=>{
 // saving all the Product to the DataBase 
 
 
-// fetch('https://s3.amazonaws.com/roxiler.com/product_transaction.json')
-// .then((response)=>response.json())
-// .then((data)=>{
-//     const productsToInsert = data; 
-//     const insertPromises = productsToInsert.map((productData) => {
-//         const product = new Product(productData);
-//         return product.save();
-//       });
+fetch('https://s3.amazonaws.com/roxiler.com/product_transaction.json')
+.then((response)=>response.json())
+.then((data)=>{
+    const productsToInsert = data; 
+    const insertPromises = productsToInsert.map((productData) => {
+        const product = new Product(productData);
+        return product.save();
+      });
 
-//       return  Promise.all(insertPromises)
-// })
-// .then((insertedProducts) => {
-//     console.log(`Inserted ${insertedProducts.length} products into the database.`);
-//   })
-//   .catch((error) => {
-//     console.error('Error inserting products: ' + error);
-//   });
+      return  Promise.all(insertPromises)
+})
+.then((insertedProducts) => {
+    console.log(`Inserted ${insertedProducts.length} products into the database.`);
+  })
+  .catch((error) => {
+    console.error('Error inserting products: ' + error);
+  });
 
 
   

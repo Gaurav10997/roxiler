@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 import Statics from "./Statics";
 import BarChart from "./BarChart";
 import PieChart from "./PieChart.jsx";
+import URL from "./URL.js";
 
 import Pagination from "@mui/material/Pagination";
 
@@ -22,6 +23,7 @@ export default function App() {
   const [totalpage, setTotalPage] = useState(1);
   const [month, setMonth] = useState("MARCH");
   const [search, setSearch] = useState("");
+  console.log(URL)
   const handleMonth = (value) => {
     setMonth(value);
     console.log(value);
@@ -33,7 +35,7 @@ export default function App() {
 
   React.useEffect(() => {
     fetch(
-      `http://localhost:4040/transactions?page=${pageNo}&limit=3&month=${month}&search=${search}`
+      `${URL}transactions?page=${pageNo}&limit=3&month=${month}&search=${search}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -44,7 +46,7 @@ export default function App() {
   }, [pageNo, month, search]);
 
   React.useEffect(() => {
-    fetch(`http://localhost:4040/categorystats?month=${month}`)
+    fetch(`${URL}categorystats?month=${month}`)
       .then((response) => response.json())
       .then((data) => setCategoryStats(data))
       .catch((err) => console.log(err));

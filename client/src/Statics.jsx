@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-
+import URL from "./URL";
 // eslint-disable-next-line react/prop-types
 export default function Statics({ month }) {
   const [data, setData] = useState({});
-
+  
   useEffect(() => {
-    fetch(`http://localhost:4040/statistics?month=${month}`)
+    fetch(`${URL}statistics?month=${month}`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

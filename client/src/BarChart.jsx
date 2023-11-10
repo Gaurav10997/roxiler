@@ -2,13 +2,14 @@ import { Bar } from "react-chartjs-2";
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJS } from "chart.js/auto";
 import { useState, useEffect } from "react";
+import URL from "./URL";
 // eslint-disable-next-line react/prop-types
 export default function BarChart({ month }) {
   const [priceRangeData, setPriceRangeData] = useState([]);
   const [pricebound, setpricebound] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:4040/barchart?month=${month}`)
+    fetch(`${URL}barchart?month=${month}`)
       .then((response) => response.json())
       .then((data) => {
         setPriceRangeData(data.priceRangeData);
